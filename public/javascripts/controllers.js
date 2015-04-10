@@ -20,8 +20,13 @@ catalogueApp.controller('CatalogueCtrl', [ '$http', function($http) {
 
   var self = this;
 
-  this.addComment = function (list) {
-    list.push(self.comment);
+  this.addComment = function (product) {
+    product.comments.push(self.comment);
     self.comment = '';
+    delete product.showForm;
+  }
+
+  this.makeItShow = function (product) {
+    product.showForm = true;
   }
 }]);

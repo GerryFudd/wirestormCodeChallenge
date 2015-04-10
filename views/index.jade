@@ -8,5 +8,7 @@ block content
     div
       p(ng-repeat="comment in product.comments") {{comment}}
 
-    input(ng-model="cCtrl.comment")
-    button(ng-click="cCtrl.addComment(product.comments)")
+    form(ng-hide="!product.showForm")
+      input(ng-model="cCtrl.comment")
+      button(ng-click="cCtrl.addComment(product)") Submit
+    button(ng-hide="product.showForm",ng-click="cCtrl.makeItShow(product)") Show Form
