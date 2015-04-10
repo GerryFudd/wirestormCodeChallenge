@@ -5,3 +5,8 @@ block content
   div(ng-repeat="product in cCtrl.products")
     h3 {{product.name}}
     p {{product.description}}
+    div
+      p(ng-repeat="comment in product.comments") {{comment}}
+
+    input(ng-model="cCtrl.comment")
+    button(ng-click="cCtrl.addComment(product.comments)")
