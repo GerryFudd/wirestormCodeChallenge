@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1= title
+  div(ng-repeat="product in cCtrl.products")
+    h3 {{product.name}}
+    p {{product.description}}

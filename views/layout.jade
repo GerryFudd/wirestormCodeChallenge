@@ -1,0 +1,9 @@
+doctype html
+html(ng-app="catalogueApp")
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="components/angular.js")
+    script(src="javascripts/controllers.js")
+  body(ng-controller="CatalogueCtrl as cCtrl")
+    block content

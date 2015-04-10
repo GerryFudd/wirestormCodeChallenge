@@ -1,0 +1,19 @@
+{
+  "name": "wirestorm",
+  "version": "0.0.0",
+  "authors": [
+    "David Hasenjaeger <davehasen@gmail.com>"
+  ],
+  "description": "Program that will display a list of products with comments.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.15"
+  }
+}
