@@ -2,8 +2,18 @@ extends layout
 
 block content
   h1= title
+  button(ng-hide="cCtrl.showProductForm",ng-click="cCtrl.showForm()") Add Product
+  form(ng-hide="!cCtrl.showProductForm")
+    p Product Name
+    input(ng-model="cCtrl.productName")
+    p Product Cost (US dollars)
+    input(ng-model="cCtrl.productCost")
+    p Product Description
+    input(ng-model="cCtrl.productDescription")
+    button(ng-click="cCtrl.addProduct()") Add Product
   div(ng-repeat="product in cCtrl.products")
     h3 {{product.name}}
+    p ${{product.cost}}
     p {{product.description}}
     div
       p(ng-repeat="comment in product.comments") {{comment}}
