@@ -44,10 +44,16 @@ router.get('/', function(req, res, next) {
 
 // adds new comments to an existing product
 router.post('/addComment', function(req, res) {
-	var newComment = req.body.comment;
-	var product = data[req.body.ind];
-	product.comments.push(newComment);
-	res.json(newComment);
+	var product = req.body.product;
+	var comment = req.body.comment;
+	MongoClient.connect(url, function(err, db) {
+	  modifyProduct(db, {
+	  	"product": product,
+	  	"comment": comment
+	  }, function (result) {
+	  	res.json(result);
+	  });
+	});
 });
 
 // adds new comments to an existing product
@@ -92,6 +98,20 @@ function findProducts (db, callback) {
     console.dir(docs);
     callback(docs);
   });      
+}
+
+function modifyProduct (db, data, callback) {
+  // Get the documents collection
+  var collection = db.collection('products');
+  // Update document where a is 2, set b equal to 1
+  collection.update({ name :  data.product.name}
+    , { $addToSet: {
+    	comments : data.comment
+    } }, function(err, result) {
+    assert.equal(err, null);
+    console.log("Added comment " + data.comment + " to " + data.name + ".");
+    callback(data.product);
+  });  
 }
 
 module.exports = router;

@@ -18,6 +18,10 @@ catalogueApp.controller('CatalogueCtrl',
     self.showProductForm = true;
   }
 
+  this.hideForm = function () {
+    delete self.showProductForm;
+  }
+
   // Controlls the addition of a new comment to a product
   this.addProduct = function (product) {
     $http.post('/api/addProduct',
@@ -39,29 +43,37 @@ catalogueApp.controller('CatalogueCtrl',
 
   // Controlls the addition of a new comment to a product
   this.addComment = function (product) {
+    var productNumber = self.products.indexOf(product);
     $http.post('/api/addComment',
-      {comment: self.comment, ind: self.products.indexOf(product)}).
+      {"comment": self.comment, "product": product}).
     success(function (data, staus, headers, config) {
-      console.log('added comment: ' + data);
+      console.log(data);
+      self.comment = '';
+      initiatePage(productNumber);
     }).
     error(function(data, status, headers, config){
       console.log(data);
     });
-    self.comment = '';
-    delete product.showForm;
-    initiatePage();
   }
 
   // makes a comment form appear below a product
-  this.makeItShow = function (product) {
-    product.showForm = true;
+  this.showDetail = function (product) {
+    product.showDetail = true;
+    self.singleView = true;
   }
 
   // retrieve the list of products from the database
-  function initiatePage () {
+  function initiatePage (number) {
     $http.get('/api/').
-      success(getList).
+      success(function (data, status, headers, config) {
+        getList(data);
+        if (typeof(number) === 'number') {
+          console.log(number);
+          self.products[number].showDetail = true;
+        }
+      }).
       error(function(data, status, headers, config){
+        console.log(data);
       });
   }
   function getList (data) {

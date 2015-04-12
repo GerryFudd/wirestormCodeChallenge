@@ -11,14 +11,15 @@ block content
     p Product Description
     input(ng-model="cCtrl.productDescription")
     button(ng-click="cCtrl.addProduct()") Add Product
-  div(ng-repeat="product in cCtrl.products")
+    button(ng-click="cCtrl.hideForm()") Cancel
+  div(ng-repeat="product in cCtrl.products",ng-hide="cCtrl.singleView && !product.showDetail")
     h3 {{product.name}}
     p ${{product.cost}}
     p {{product.description}}
-    div
+    div(ng-hide="!product.showDetail")
+      h4 Product reviews:
       p(ng-repeat="comment in product.comments") {{comment}}
-
-    form(ng-hide="!product.showForm")
-      input(ng-model="cCtrl.comment")
-      button(ng-click="cCtrl.addComment(product)") Submit
-    button(ng-hide="product.showForm",ng-click="cCtrl.makeItShow(product)") Show Form
+      form
+        input(ng-model="cCtrl.comment")
+        button(ng-click="cCtrl.addComment(product)") Submit
+    button(ng-hide="product.showDetail",ng-click="cCtrl.showDetail(product)") Show Detail
