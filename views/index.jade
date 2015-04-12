@@ -22,4 +22,5 @@ block content
       form
         input(ng-model="cCtrl.comment")
         button(ng-click="cCtrl.addComment(product)") Submit
+        button(ng-click="cCtrl.showFull(product)") See All Products
     button(ng-hide="product.showDetail",ng-click="cCtrl.showDetail(product)") Show Detail

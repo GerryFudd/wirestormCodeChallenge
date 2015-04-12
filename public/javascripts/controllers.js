@@ -62,6 +62,11 @@ catalogueApp.controller('CatalogueCtrl',
     self.singleView = true;
   }
 
+  this.showFull = function (product) {
+    delete product.showDetail;
+    delete self.singleView;
+  }
+
   // retrieve the list of products from the database
   function initiatePage (number) {
     $http.get('/api/').
